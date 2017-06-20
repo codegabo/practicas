@@ -15,7 +15,10 @@ func main() {
 		log.Fatal(err)
 	}
 	defer db.Close()
-
+	var (
+		id   int
+		name string
+	)
 	// fetch desde la base de datos
 	/*
 		var (
@@ -43,30 +46,33 @@ func main() {
 	// preparar sql para usar multiples veces con parametros placeholders, en mysql es ?
 	/*
 		var (
-			id       int
-			fullname string
+			user_id int
+			id      int
+			content string
 		)
-		stmt, err := db.Prepare("select id, fullname from users where id = ?")
+		stmt, err := db.Prepare("select user_id, id, content from comments where id = ?")
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer stmt.Close()
-		rows, err := stmt.Query(1)
+		rows, err := stmt.Query(12)
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer rows.Close()
 		for rows.Next() {
-			err := rows.Scan(&id, &fullname)
+			err = rows.Scan(&user_id, &id, &content)
 			if err != nil {
 				log.Fatal(err)
 			}
-			log.Println("Hola, :D", id, fullname)
+			log.Println("Hola, tu usuario, id y contenido son:\n ", user_id, id, content)
 		}
 		if err = rows.Err(); err != nil {
 			log.Fatal(err)
 		}
 	*/
+
+	// preparar la declaracion sql para ser usada con parametros placeholder
 	/*
 		stmt, err := db.Prepare("select fullname from users where id = ?")
 		if err != nil {
